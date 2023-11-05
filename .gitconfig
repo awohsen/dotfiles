@@ -1,0 +1,7 @@
+[user]
+	name = awohsen
+	email = 93778317+awohsen@users.noreply.github.com
+[init]
+	defaultBranch = main
+[safe]
+	directory = *
