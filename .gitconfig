@@ -1,9 +1,13 @@
 [user]
 	name = awohsen
 	email = 93778317+awohsen@users.noreply.github.com
-	signingkey = E2842D806B07944F
+	signingkey = 160E7720DA38AF39
+
 [init]
 	defaultBranch = main
+
 [safe]
 	directory = *
 
+[core]
+	autocrlf = input
