@@ -1,0 +1,91 @@
+(defwidget main-bar []
+  (centerbox :orientation "h"
+    (leftside)
+    (workspaces)
+    (rightside)
+  )
+)
+
+(deflisten window :initial "..." "bash scripts/get-window-title")
+(defwidget leftside []
+  (box 
+    :class "leftside"
+    :orientation "h"
+    :space-evenly false
+    :halign "start"
+    
+    window
+  )
+)
+
+(deflisten workspaces :initial "[]" "bash scripts/get-workspaces")
+(deflisten current_workspace :initial "1" "bash scripts/get-active-workspace")
+(defwidget workspaces []
+  (eventbox 
+    :onscroll "bash scripts/change-active-workspace {} ${current_workspace}"
+    :class "workspaces"
+    
+    (box :space-evenly true
+      (label :text "${workspaces}${current_workspace}" :visible false)
+      (for workspace in workspaces
+        (eventbox :onclick "hyprctl dispatch workspace ${workspace.id}"
+          (box :class "workspace ${workspace.id == current_workspace ? "current" : ""} ${workspace.windows > 0 ? "occupied" : "empty"}"
+            (label :text "${workspace.id}")
+          )
+        )
+      )
+    )
+  )
+)
+
+
+(defwidget rightside []
+  (box :class "rightside" :orientation "h" :space-evenly false :halign "end"
+    (metric :label ""
+            :value volume
+            :onchange "amixer sset Master {}%"
+    )
+    time
+  )
+)
+
+(defwidget metric [label value onchange]
+  (box :orientation "h"
+       :class "metric"
+       :space-evenly false
+
+    (box :class "label" label)
+    (scale :min 0
+           :max 101
+           :active {onchange != ""}
+           :value value
+           :onchange onchange
+    )
+  )
+)
+
+
+(defpoll volume :interval "5s" :initial "100"
+  "bash scripts/getvol"
+)
+
+(defpoll time :interval "15s"
+  "date '+%H:%M %b %d, %Y'"
+)
+
+(defwindow main-bar 
+  :monitor 2
+  :windowtype "dock"
+  :geometry (geometry :x "0%"
+                      :y "0%"
+                      :width "100%"
+                      :height "30px"
+                      :anchor "top center"
+            )
+  :stacking "fg"
+  :reserve (struts :side "top" :distance "100px")
+  :exclusive true
+  :namespace "ewws"
+  
+  (main-bar)
+)

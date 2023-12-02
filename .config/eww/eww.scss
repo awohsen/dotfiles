@@ -1,0 +1,60 @@
+* {
+  all: unset; //Unsets everything so you can style everything from scratch
+}
+
+.main-bar {
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 0px 0px 3px 3px;
+  border-bottom: 1px;
+  border-color: rgba(59, 59, 59, 0.1);
+  border-style: solid;
+  margin: 10px;
+}
+
+.workspaces{
+  background: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.2) 10%, rgba(0, 0, 0, 0.2) 90%, transparent 100%);
+  min-width: 100px;
+}
+
+.workspace {
+  font-size: 18px;
+  color: white;
+  margin: 5px 5px 5px 5px;
+}
+
+.workspace.empty {
+  font-weight: 300;
+}
+
+.workspace.current {
+  color: #0041ff;
+  font-weight: bold;
+  font-size: 21px;
+  text-shadow: #33ccff 1px 0px 10px;
+  animation: fade-in  0.2s ease-in;
+}
+
+@keyframes fade-in{
+  from {
+    color: white;
+    font-weight: normal;
+  }
+}
+
+.metric scale trough highlight {
+  all: unset;
+  background-color: #0041ff;
+  color: #000000;
+  border-radius: 10px;
+}
+
+.metric scale trough {
+  all: unset;
+  background-color: #595959;
+  border-radius: 50px;
+  min-height: 3px;
+  min-width: 85px;
+  margin-left: 10px;
+  margin-right: 20px;
+}
+
